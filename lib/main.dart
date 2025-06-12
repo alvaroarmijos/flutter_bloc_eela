@@ -44,7 +44,6 @@ class MyCounterPage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text('Valor actual del contador'),
-            // Text('${counterCubit.state}'),
             BlocBuilder<CounterBloc, int>(
               builder: (context, state) {
                 return Text('$state');
@@ -67,6 +66,7 @@ class MyCounterPage extends StatelessWidget {
           FloatingActionButton(
             onPressed: () {
               // counterCubit.decrement();
+              counterBloc.add(DecrementEvent());
             },
             child: Icon(Icons.remove),
           ),

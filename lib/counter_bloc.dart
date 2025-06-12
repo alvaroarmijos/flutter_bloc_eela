@@ -7,6 +7,11 @@ class CounterBloc extends Bloc<CounterEvent, int> {
       /// La lógica para aumentar el contador
       emit(state + 1);
     });
+
+    on<DecrementEvent>((event, emit) {
+      // Lógica para disminuir el contador
+      emit(state - 1);
+    });
   }
 }
 
