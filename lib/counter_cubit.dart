@@ -7,4 +7,9 @@ class CounterCubit extends Cubit<int> {
     final newValue = state + 1;
     emit(newValue);
   }
+
+  void decrement() {
+    final newValue = state - 1;
+    emit(newValue);
+  }
 }

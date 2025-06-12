@@ -30,6 +30,7 @@ class MyCounterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final counterCubit = context.watch<CounterCubit>();
+    final counterCubit = context.read<CounterCubit>();
 
     return Scaffold(
       appBar: AppBar(title: Text('Counter App')),
@@ -47,12 +48,23 @@ class MyCounterPage extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          final counterCubit = context.read<CounterCubit>();
-          counterCubit.increment();
-        },
-        child: Icon(Icons.add),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        spacing: 12,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              counterCubit.increment();
+            },
+            child: Icon(Icons.add),
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              counterCubit.decrement();
+            },
+            child: Icon(Icons.remove),
+          ),
+        ],
       ),
     );
   }
