@@ -1,3 +1,4 @@
+import 'package:counter/counter_bloc.dart';
 import 'package:counter/counter_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,8 +12,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CounterCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => CounterBloc()),
+        BlocProvider(create: (context) => CounterCubit()),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -30,7 +34,8 @@ class MyCounterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final counterCubit = context.watch<CounterCubit>();
-    final counterCubit = context.read<CounterCubit>();
+    // final counterCubit = context.read<CounterCubit>();
+    final counterBloc = context.read<CounterBloc>();
 
     return Scaffold(
       appBar: AppBar(title: Text('Counter App')),
@@ -40,7 +45,7 @@ class MyCounterPage extends StatelessWidget {
           children: [
             Text('Valor actual del contador'),
             // Text('${counterCubit.state}'),
-            BlocBuilder<CounterCubit, int>(
+            BlocBuilder<CounterBloc, int>(
               builder: (context, state) {
                 return Text('$state');
               },
@@ -54,13 +59,14 @@ class MyCounterPage extends StatelessWidget {
         children: [
           FloatingActionButton(
             onPressed: () {
-              counterCubit.increment();
+              // counterCubit.increment();
+              counterBloc.add(IncrementEvent());
             },
             child: Icon(Icons.add),
           ),
           FloatingActionButton(
             onPressed: () {
-              counterCubit.decrement();
+              // counterCubit.decrement();
             },
             child: Icon(Icons.remove),
           ),
